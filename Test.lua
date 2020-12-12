@@ -9,18 +9,17 @@ local generator = component.redstone
 local max = component.energy_device.getMaxEnergyStored() 
 
 --charges battery to 40%
-function charge()
-	-- if (battery.isEnergyReceiver == false) then
-		-- return "not a battery"
-	-- end
-	local percent = battery.getEnergyStored() / max
-	while (percent < 0.4) do
-		generator.setOutput(sides.left, 15)
-		print("charging: "..percent)
-	end	
-		
-	if (battery.getEnergyStored() / max > 0.4) then
-		generator.setOutput(sides.left, 0)
-		return "charged 40%"	
-	end		
+
+-- if (battery.isEnergyReceiver == false) then
+-- return "not a battery"
+-- end
+local percent = battery.getEnergyStored() / max
+if (percent < 0.4) do
+generator.setOutput(sides.left, 15)
+print("charging: "..percent)
+end
+
+if (battery.getEnergyStored() / max > 0.4) then
+generator.setOutput(sides.left, 0)
+return "charged 40%"
 end
