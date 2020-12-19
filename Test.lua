@@ -1,5 +1,5 @@
---Monitoring an (Integrated Dynamics) energy battery powered by (RFTools) coal generator 
---redstone signal to control generator
+--(Integrated Dynamics) energy battery & (RFTools) coal generator 
+--redstone signal from left face of the computer to the generator
 --
 -- Modules
 local component = require("component")
@@ -8,18 +8,18 @@ local battery = component.energy_device
 local generator = component.redstone
 local max = component.energy_device.getMaxEnergyStored() 
 
---charges battery to 40%
+--charges battery %
+local percent = battery.getEnergyStored() / max 
 
--- if (battery.isEnergyReceiver == false) then
--- return "not a battery"
--- end
-local percent = battery.getEnergyStored() / max
-if (percent < 0.4) do
+if (battery.isReceiver == false) then
+return "not a battery"
+end
+if (percent < 1) do
 generator.setOutput(sides.left, 15)
-print("charging: "..percent)
+print("charging: "..math.floor(percent*100))
 end
 
-if (battery.getEnergyStored() / max > 0.4) then
+if (percent = 1) then
 generator.setOutput(sides.left, 0)
-return "charged 40%"
+return "*********finished charging*********"
 end
